@@ -67,35 +67,6 @@ def get_dim_list(base_tag, dim_list):
 
     return temp
 
-def read_plc_row(plc, tag_list):
-    '''
-    reads data from plc, returns list of tuples (tag_name, tag_value)
-    '''
-    
-    if plc.connected:
-        tag_data = plc.read(*tag_list)
-
-    # tuple of tag name, data
-    tag_data_formatted = []
-
-    # hardcoded but it works
-    for s in tag_data:
-        if s[2] == 'BOOL':
-            data = int(s[1])
-        elif s[2] == 'REAL':
-            if 'e' in str(s[1]):
-                data = float(format(s[1],'.6e'))
-            elif s[1].is_integer():
-                data = int(s[1])
-            else:
-                data = float(format(s[1], '.6f'))                  
-        else:
-            data = s[1]
-
-        tag_data_formatted.append((s[0],data))
-
-    return tag_data_formatted
-
 if __name__ == "__main__":
 
     # Arguments checking
@@ -137,7 +108,7 @@ if __name__ == "__main__":
             for i in tqdm(range(num_instances),"Checking instances of " + aoi):
                 tag_list = make_tag_list(base_tags[i],bypass_tags)
 
-                # data for one tag and all sub tags
+                # read bypass tag list
                 tag_data = plc.read(*tag_list)
 
                 if tag_data[1]:
@@ -153,9 +124,20 @@ if __name__ == "__main__":
         else:
             print("No instances of " + aoi + " found in " + plc_name + " PLC.")
 
+    print('')
     print('Finished checking bypasses in ' + plc_name + ' PLC.')
+    print('')
     print('Found ' + str(len(total_bypassed_tags)) + '.')
-    for tag in total_bypassed_tags:
-        print(tag)
+    print('')
 
+    # print tag list
+    if len(total_bypassed_tags) > 0:
+        print('###################################')
+        print('########## BYPASSED TAGS ##########')
+        print('')
+        for tag in total_bypassed_tags:
+            print(tag)
+        print('')
+        print('###################################')
+        print('')
     plc.close()
