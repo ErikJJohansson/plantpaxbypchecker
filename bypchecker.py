@@ -8,7 +8,11 @@ from tqdm import trange, tqdm
 
 bypass_tags = ['.Sts_BypActive']
 
-aoi_types   = ['P_Perm','P_Intlk','P_IntlkAdv','P_AOut','P_DOut','P_D4SD','P_PIDE','P_Motor','P_PF755']
+aoi_types   = ['P_AOut','P_AOutHART','P_D4SD','P_Dose','P_DOut',
+               'P_Intlk','P_IntlkAdv','P_LLS','P_Motor','P_Motor2Spd',
+               'P_MotorHO','P_MotorRev','P_nPos','P_PF52x','P_PF6000',
+               'P_PF7000','P_PF753','P_PF755','P_PIDE','P_SMC50','P_SMCFlex',
+               'P_ValveC','P_ValveMO','P_ValveMP','P_ValveSO','P_VSD']
 
 def make_tag_list(base_tag,sub_tags):
     '''
