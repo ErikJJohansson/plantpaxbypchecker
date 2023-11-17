@@ -111,11 +111,13 @@ if __name__ == "__main__":
                 # read bypass tag list
                 tag_data = plc.read(*tag_list)
 
+                # second element is true/false flag. True means the .Sts_BypActive bit is on and add tag to list
                 if tag_data[1]:
                     aoi_bypassed_tags.append(base_tags[i])
 
             num_aoi_bypassed = len(aoi_bypassed_tags)
 
+            # output to command line and add tag to list
             if num_aoi_bypassed >= 1:
                 print("Found " + str(num_aoi_bypassed) + " bypassed instances of " + aoi)
 
