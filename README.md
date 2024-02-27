@@ -1,12 +1,12 @@
-# PlantPAX Bypass Checker
+# PlantPAX Simulation & Bypass Checker
 
 
 
 ## Description
 
-This project checks if instances of PlantPAX AOI's are bypassed. If any are found, a list is printed of the tags in bypass
+This project checks if instances of PlantPAX AOI's are simulated or bypassed. If any are found, a list is printed of the tags in bypass
 
-Below are the tag types being checked
+Below are the tag types being checked for bypasses
 
 P_AOut
 P_AOutHART
@@ -34,6 +34,12 @@ P_ValveMO
 P_ValveMP
 P_ValveSO
 P_VSD
+
+Below are the tags being checked for simulation
+
+P_AIn
+P_AInMulti
+P_DIn
 
 ## Motivation
 
