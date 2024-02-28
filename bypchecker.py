@@ -4,9 +4,7 @@ from tqdm import trange, tqdm
 from itertools import product
 import argparse
 
-'''
-    argv 1 PLC path
-'''
+# Define bypass and simulated tags
 
 bypass_tags = ['.Sts_BypActive']
 
@@ -18,8 +16,9 @@ bypass_aoi_types = ['P_AOut','P_AOutHART','P_D4SD','P_Dose','P_DOut',
                'P_PF7000','P_PF753','P_PF755','P_PIDE','P_SMC50','P_SMCFlex',
                'P_ValveC','P_ValveMO','P_ValveMP','P_ValveSO','P_VSD']
 
-sim_aoi_types = ['P_AIn','P_AInMulti','P_DIn']
+sim_aoi_types = ['P_AIn','P_AInDual','P_AInMulti','P_DIn']
 
+# append elements to instance of tag
 def make_tag_list(base_tag,sub_tags):
     '''
     returns the full tag path of a given base tag and sub tags
@@ -29,12 +28,11 @@ def make_tag_list(base_tag,sub_tags):
 
     return read_list
 
+# get all instances of a tag type
 def get_aoi_tag_instances(plc, tag_type):
     """
     function returns list of tag names matching struct type
     """
-    #return tag_list
-
     tag_list = []
 
     for tag, _def in plc.tags.items():
