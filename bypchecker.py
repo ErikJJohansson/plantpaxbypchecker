@@ -80,7 +80,7 @@ def check_for_bypass_tags():
 
                 # second element is true/false flag. True means the .Sts_BypActive bit is on and add tag to list
                 if tag_data[1]:
-                    aoi_bypassed_tags.append(base_tags[i])
+                    aoi_bypassed_tags.append(base_tags[i] + ' - ' + plc.read(base_tags[i] + '.Cfg_Desc')[1])
 
             num_aoi_bypassed = len(aoi_bypassed_tags)
 
@@ -132,7 +132,7 @@ def check_for_sim_tags():
 
                 # second element is true/false flag. True means the .Sts_BypActive bit is on and add tag to list
                 if tag_data[1]:
-                    aoi_simulated_tags.append(base_tags[i])
+                    aoi_simulated_tags.append(base_tags[i] + ' - ' + plc.read(base_tags[i] + '.Cfg_Desc')[1])
 
             num_aoi_simulated = len(aoi_simulated_tags)
 
