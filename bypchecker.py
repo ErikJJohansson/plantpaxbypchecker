@@ -10,13 +10,23 @@ bypass_tags = ['.Sts_BypActive']
 
 sim_tags    = ['.Sts_SubstPV']
 
-bypass_aoi_types = ['P_AOut','P_AOutHART','P_D4SD','P_Dose','P_DOut',
+bypass_aoi_types_v4 = ['P_AOut','P_AOutHART','P_D4SD','P_Dose','P_DOut',
                'P_Intlk','P_IntlkAdv','P_LLS','P_Motor','P_Motor2Spd',
                'P_MotorHO','P_MotorRev','P_nPos','P_PF52x','P_PF6000',
-               'P_PF7000','P_PF753','P_PF755','P_PIDE','P_SMC50','P_SMCFlex',
+               'P_PF7000','P_PF753','P_PF755','P_PIDE','P_PID','P_SMC50','P_SMCFlex',
                'P_ValveC','P_ValveMO','P_ValveMP','P_ValveSO','P_VSD']
 
-sim_aoi_types = ['P_AIn','P_AInDual','P_AInMulti','P_DIn']
+bypass_aoi_types_v5 = ['P_ANALOG_OUTPUT','P_DISCRETE_OUTPUT','P_DISCRETE_4STATE',
+                'P_DISCRETE_MIX_PROOF','P_DISCRETE_N_POSITION','P_INTERLOCK','P_PERMISSIVE',
+                'P_VARIABLE_SPEED_DRIVE','P_LEAD_LAG_STANDBY','P_MOTOR_DISCRETE','P_VALVE_DISCRETE']
+
+bypass_aoi_types = bypass_aoi_types_v4 + bypass_aoi_types_v5
+
+sim_aoi_types_v4 = ['P_AIn','P_AInDual','P_AInMulti','P_DIn']
+
+sim_aoi_types_v5 = ['P_ANALOG_INPUT','P_DISCRETE_INPUT']
+
+sim_aoi_types = sim_aoi_types_v4 + sim_aoi_types_v5
 
 # append elements to instance of tag
 def make_tag_list(base_tag,sub_tags):
@@ -80,7 +90,11 @@ def check_for_bypass_tags():
 
                 # second element is true/false flag. True means the .Sts_BypActive bit is on and add tag to list
                 if tag_data[1]:
-                    aoi_bypassed_tags.append(base_tags[i] + ' - ' + plc.read(base_tags[i] + '.Cfg_Desc')[1])
+                    try: #v5 compatibility
+                        tag_string = base_tags[i] + ' - ' + plc.read(base_tags[i] + '.Cfg_Desc')[1]
+                    except:
+                        tag_string = base_tags[i]
+                    aoi_bypassed_tags.append(tag_string)
 
             num_aoi_bypassed = len(aoi_bypassed_tags)
 
@@ -132,7 +146,11 @@ def check_for_sim_tags():
 
                 # second element is true/false flag. True means the .Sts_BypActive bit is on and add tag to list
                 if tag_data[1]:
-                    aoi_simulated_tags.append(base_tags[i] + ' - ' + plc.read(base_tags[i] + '.Cfg_Desc')[1])
+                    try: #v5 compatibility
+                        tag_string = base_tags[i] + ' - ' + plc.read(base_tags[i] + '.Cfg_Desc')[1]
+                    except:
+                        tag_string = base_tags[i]
+                    aoi_simulated_tags.append(tag_string)
 
             num_aoi_simulated = len(aoi_simulated_tags)
 
