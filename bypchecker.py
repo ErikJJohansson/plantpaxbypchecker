@@ -115,13 +115,13 @@ def check_for_bypass_tags():
 
     # print tag list
     if len(total_bypassed_tags) > 0:
-        print('###################################')
-        print('########## BYPASSED TAGS ##########')
+        print('####################################')
+        print('PERMISSIVE & INTERLOCK BYPASSED TAGS')
         print('')
         for tag in total_bypassed_tags:
             print(tag)
         print('')
-        print('###################################')
+        print('####################################')
         print('')  
 
 def check_for_sim_tags():
@@ -170,13 +170,13 @@ def check_for_sim_tags():
 
     # print tag list
     if len(total_simulated_tags) > 0:
-        print('###################################')
-        print('########## SIMULATED TAGS ##########')
+        print('####################################')
+        print('######### SUBSTITUTED TAGS #########')
         print('')
         for tag in total_simulated_tags:
             print(tag)
         print('')
-        print('###################################')
+        print('####################################')
         print('')  
 
 
